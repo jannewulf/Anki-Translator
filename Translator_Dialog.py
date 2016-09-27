@@ -7,7 +7,7 @@ class Translator_Dialog:
         self.vocable = vocable
 
     def setupUi(self):
-        
+
 
     def show():
         setupUi()
