@@ -33,7 +33,7 @@ class TranslatorDialog(QDialog):
     def createGroupBox(self):
         self.formGroupBox = QGroupBox("Group Box")
         layout = QFormLayout()
-        layout.addRow(QLabel("Vocable"), QLineEdit())
+        layout.addRow(QLabel("Vocable"), QLineEdit(self.vocable))
         layout.addRow(None, QPushButton("Translate"))
         layout.addRow(QLabel("Translations"), QTableView())
         self.formGroupBox.setLayout(layout)
