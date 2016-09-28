@@ -68,9 +68,13 @@ class TranslatorDialog(QDialog):
         p = Parser()
         translations = p.getTranslation(vocab)
 
-        self.tableTranslations.setRowCount(len(translations))
+        setTableContent(translations)
 
-        for i, row in enumerate(translations):
+
+    def setTableContent(self, content):
+        self.tableTranslations.setRowCount(len(content))
+
+        for i, row in enumerate(content):
             for j, col in enumerate(row):
                 if j == 0:
                     chkBoxItem = QTableWidgetItem()
