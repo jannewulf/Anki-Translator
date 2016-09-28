@@ -1,5 +1,6 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import Qt
+from Parser import Parser
 from aqt.utils import showInfo
 
 class TranslatorDialog(QDialog):
@@ -12,7 +13,7 @@ class TranslatorDialog(QDialog):
 
         # set up gui
         self.setupUi()
-        
+
 
     def setupUi(self):
         # Set up window
@@ -47,8 +48,9 @@ class TranslatorDialog(QDialog):
         layout.addRow(None, self.buttonTranslate)
 
         # translations table
-        self.tableTranslations = QTableView()
+        self.tableTranslations = QTableWidget()
         layout.addRow(QLabel("Translations"), self.tableTranslations)
+        self.tableTranslations.setColumnCount(3)
 
         self.formGroupBox.setLayout(layout)
 
@@ -62,4 +64,13 @@ class TranslatorDialog(QDialog):
 
 
     def translate(self):
-        showInfo(self.lineEditVocable.text())
+        vocab = self.lineEditVocable.text()
+        p = Parser()
+        translations = p.getTranslation(vocab)
+
+        self.tableTranslations.setRowCount(len(translations))
+
+        for i, row in enumerate(translations):
+            for j, col in enumerate(row):
+                item = QTableWidgetItem(col)
+                self.tableTranslations.setItem(i, j + 1, item)
