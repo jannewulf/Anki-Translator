@@ -1,5 +1,5 @@
 from PyQt4.QtGui import *
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, QRect
 from Parser import Parser
 from aqt.utils import showInfo
 
@@ -49,8 +49,13 @@ class TranslatorDialog(QDialog):
 
         # translations table
         self.tableTranslations = QTableWidget()
-        layout.addRow(QLabel("Translations"), self.tableTranslations)
+        self.tableTranslations.setMinimumWidth(600)
         self.tableTranslations.setColumnCount(3)
+        self.tableTranslations.setHorizontalHeaderLabels(["Use", "Vocable", "Translation"])
+        self.tableTranslations.horizontalHeader().setResizeMode(QHeaderView.ResizeToContents)
+        self.tableTranslations.horizontalHeader().setStretchLastSection(True)
+        self.tableTranslations.verticalHeader().hide()
+        layout.addRow(QLabel("Translations"), self.tableTranslations)
 
         self.formGroupBox.setLayout(layout)
 
