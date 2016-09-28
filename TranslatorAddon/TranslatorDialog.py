@@ -72,5 +72,10 @@ class TranslatorDialog(QDialog):
 
         for i, row in enumerate(translations):
             for j, col in enumerate(row):
+                if j == 0:
+                    chkBoxItem = QTableWidgetItem()
+                    chkBoxItem.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+                    chkBoxItem.setCheckState(Qt.Unchecked)
+                    self.tableTranslations.setItem(i, j, chkBoxItem)
                 item = QTableWidgetItem(col)
                 self.tableTranslations.setItem(i, j + 1, item)
