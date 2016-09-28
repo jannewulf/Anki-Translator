@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QDialog, QDialogButtonBox
+from PyQt4.QtGui import *
 from PyQt4.QtCore import Qt
 
 class TranslatorDialog(QDialog):
@@ -6,21 +6,41 @@ class TranslatorDialog(QDialog):
     def __init__(self, editor):
         super(TranslatorDialog, self).__init__()
 
-        self.editor = editor
+        # Extract the looked up vocable
         self.vocable = editor.note.fields[0]
 
-    # Check how to implement a QDialog (which functions needed etc.)
+        # set up gui
+        self.setupUi()
 
     def setupUi(self):
-        # TODO create widget
+        # Set up window
         self.setWindowTitle("Translator")
         self.setModal(True)
 
-        # Add Ok and Cancel buttons
-        self.buttonBox = QDialogButtonBox(self)
-        self.buttonBox.setOrientation(Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        # create vocab line edit, translations table etc.
+        self.createGroupBox()
 
-    def show(self):
-        self.setupUi()
-        self.exec_()
+        # Add Ok and Cancel buttons
+        self.createButtonBox()
+
+        # bring ui elements together in main layout
+        mainLayout = QVBoxLayout()
+        mainLayout.addWidget(self.formGroupBox)
+        mainLayout.addWidget(self.buttonBox)
+        self.setLayout(mainLayout)
+
+    # creates all the gui elements except for the button box on the bottom
+    def createGroupBox(self):
+        self.formGroupBox = QGroupBox("Group Box")
+        layout = QFormLayout()
+        layout.addRow(QLabel("Vocable"), QLineEdit())
+        layout.addRow(None, QPushButton("Translate"))
+        layout.addRow(QLabel("Translations"), QTableView())
+        self.formGroupBox.setLayout(layout)
+
+    # creates the 'Ok' and 'Cancel' buttons
+    def createButtonBox(self):
+        self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok |
+            QDialogButtonBox.Cancel)
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)

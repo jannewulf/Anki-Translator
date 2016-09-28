@@ -4,10 +4,10 @@ from aqt.utils import showInfo
 from TranslatorAddon.TranslatorDialog import TranslatorDialog
 
 # This functino gets executed when the button in the editor is pressed
-def getTranslation(self):
-	#showInfo("Looking for Translation")
-	dialog = TranslatorDialog(self)
-	showInfo(dialog.vocable)
+def getTranslation(editor):
+	#showInfo("Looking for Translation for " + editor.note.fields[0])
+	dialog = TranslatorDialog(editor)
+	dialog.exec_()
 
 # Definition of the new button
 def mySetupButtons(self):
