@@ -33,9 +33,12 @@ class TranslatorDialog(QDialog):
     def createGroupBox(self):
         self.formGroupBox = QGroupBox("Group Box")
         layout = QFormLayout()
-        layout.addRow(QLabel("Vocable"), QLineEdit(self.vocable))
-        layout.addRow(None, QPushButton("Translate"))
-        layout.addRow(QLabel("Translations"), QTableView())
+        self.lineEditVocable = QLineEdit(self.vocable)
+        layout.addRow(QLabel("Vocable"), self.lineEditVocable)
+        self.buttonTranslate = QPushButton("Translate")
+        layout.addRow(None, self.buttonTranslate)
+        self.tableTranslations = QTableView()
+        layout.addRow(QLabel("Translations"), self.tableTranslations)
         self.formGroupBox.setLayout(layout)
 
     # creates the 'Ok' and 'Cancel' buttons
