@@ -68,7 +68,7 @@ class TranslatorDialog(QDialog):
         p = Parser()
         translations = p.getTranslation(vocab)
 
-        setTableContent(translations)
+        self.setTableContent(translations)
 
 
     def setTableContent(self, content):
