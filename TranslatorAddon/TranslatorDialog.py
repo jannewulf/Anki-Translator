@@ -35,7 +35,7 @@ class TranslatorDialog(QDialog):
 
     # creates all the gui elements except for the button box on the bottom
     def createGroupBox(self):
-        self.formGroupBox = QGroupBox("Group Box")
+        self.formGroupBox = QGroupBox()
         layout = QFormLayout()
 
         # vocabulary line edit
