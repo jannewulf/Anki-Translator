@@ -1,5 +1,5 @@
 from Parser import Parser
-import re
+from Log import log
 
 class PONSParser(Parser):
 
@@ -12,14 +12,13 @@ class PONSParser(Parser):
 
         translations = []
 
-        divs = doc.findAll("div", { "class" : re.compile("translations") })
-
-        for div in divs:
-            sources = div.findAll("div", {"class" : "source"})
-            targets = div.findAll("div", {"class" : "target"})
-            for i in range(len(sources)):
-                source = sources[i].text.encode("utf-8")
-                target = targets[i].text.encode("utf-8")
-                translations.append([source, target])
+        sources = doc.findAll("div", {"class" : "source"})
+        targets = doc.findAll("div", {"class" : "target"})
+        for i in range(len(sources)):
+            source = "".join(sources[i].findAll(text=True)).strip()
+            target = "".join(targets[i].findAll(text=True)).strip()
+            if "Laubfrosch" in target:
+                log(self.__class__.__name__, sources[i])
+            translations.append([source, target])
 
         return translations
