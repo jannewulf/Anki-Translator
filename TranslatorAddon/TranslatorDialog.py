@@ -1,6 +1,6 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import Qt, QRect
-from Parser import Parser
+from Parser.PONSParser import PONSParser
 from aqt.utils import showInfo
 
 class TranslatorDialog(QDialog):
@@ -71,10 +71,13 @@ class TranslatorDialog(QDialog):
 
     def translate(self):
         vocab = self.lineEditVocable.text()
-        p = Parser()
-        translations = p.getTranslation(vocab)
+        p = PONSParser(vocab, "en", "de")
+        translations = p.getTranslation()
 
-        self.setTableContent(translations)
+        try:
+            self.setTableContent(translations)
+        except Exception as e:
+            self.setTableContent([["NO", "DATA"]]) 
 
 
     def setTableContent(self, content):
