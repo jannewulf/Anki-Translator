@@ -6,7 +6,17 @@ from TranslatorAddon.TranslatorDialog import TranslatorDialog
 # This function gets executed when the button in the editor is pressed
 def getTranslation(editor):
 	dialog = TranslatorDialog(editor)
-	dialog.exec_()
+	if dialog.exec_():
+		for translation in dialog.translations:
+			if editor.note.fields[0]:
+				editor.note.fields[0] += ",\n"
+			editor.note.fields[0] += translation[0]
+
+			if editor.note.fields[1]:
+				editor.note.fields[1] += ",\n"
+			editor.note.fields[1] += translation[1]
+
+		editor.loadNote()
 
 # Definition of the new button
 def mySetupButtons(self):

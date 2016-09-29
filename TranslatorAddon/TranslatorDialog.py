@@ -9,7 +9,9 @@ class TranslatorDialog(QDialog):
         super(TranslatorDialog, self).__init__()
 
         # Extract the looked up vocable (not updated -> use lineEdit to get current value)
+        editor.loadNote()
         self.editorVocable = editor.note.fields[0]
+        self.translations = []
 
         # set up gui
         self.setupUi()
@@ -64,7 +66,7 @@ class TranslatorDialog(QDialog):
     def createButtonBox(self):
         self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok |
             QDialogButtonBox.Cancel)
-        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.accepted.connect(self.setFieldsAndAccept)
         self.buttonBox.rejected.connect(self.reject)
 
 
@@ -88,3 +90,16 @@ class TranslatorDialog(QDialog):
                     self.tableTranslations.setItem(i, j, chkBoxItem)
                 item = QTableWidgetItem(col)
                 self.tableTranslations.setItem(i, j + 1, item)
+
+
+    def setFieldsAndAccept(self):
+        cols = self.tableTranslations.columnCount()
+        rows = self.tableTranslations.rowCount()
+
+        for i in range(rows):
+            if self.tableTranslations.item(i, 0).checkState() == Qt.Checked:
+                self.translations.append(
+                    [self.tableTranslations.item(i, 1).text(),
+                    self.tableTranslations.item(i, 2).text()])
+
+        self.accept()
