@@ -18,7 +18,7 @@ class PONSParser(Parser):
             source = "".join(sources[i].findAll(text=True)).strip()
             target = "".join(targets[i].findAll(text=True)).strip()
             if "Laubfrosch" in target:
-                log(self.__class__.__name__, sources[i])
+                log(self.__class__.__name__, sources[i].findAll(text=True))
             translations.append([source, target])
 
         return translations
