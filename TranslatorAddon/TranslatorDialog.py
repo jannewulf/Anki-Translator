@@ -5,12 +5,11 @@ from aqt.utils import showInfo
 
 class TranslatorDialog(QDialog):
 
-    def __init__(self, editor):
+    def __init__(self, vocable):
         super(TranslatorDialog, self).__init__()
 
         # Extract the looked up vocable (not updated -> use lineEdit to get current value)
-        editor.loadNote()
-        self.editorVocable = editor.note.fields[0]
+        self.editorVocable = vocable
         self.translations = []
 
         # set up gui

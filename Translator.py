@@ -5,7 +5,7 @@ from TranslatorAddon.TranslatorDialog import TranslatorDialog
 
 # This function gets executed when the button in the editor is pressed
 def getTranslation(editor):
-	dialog = TranslatorDialog(editor)
+	dialog = TranslatorDialog(editor.note.fields[0])
 	if dialog.exec_():
 		for translation in dialog.translations:
 			if editor.note.fields[0]:
