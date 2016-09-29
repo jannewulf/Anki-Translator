@@ -10,11 +10,16 @@ class PONSParser(Parser):
     def getTranslation(self):
         doc = self.getSoup()
 
-        divs = doc.findAll("div", { "class" : re.compile("translations") })
-        sources = divs[0].findAll("div", {"class" : "source"})
-        targets = divs[0].findAll("div", {"class" : "target"})
+        translations = []
 
-        with open("/home/jannewulf/Dropbox/Projekte/Anki-Translator/out.txt", "w") as f:
+        divs = doc.findAll("div", { "class" : re.compile("translations") })
+
+        for div in divs:
+            sources = div.findAll("div", {"class" : "source"})
+            targets = div.findAll("div", {"class" : "target"})
             for i in range(len(sources)):
-                print >> f, sources[i].text.encode("utf-8")
-                print >> f, targets[i].text.encode("utf-8")
+                source = sources[i].text.encode("utf-8")
+                target = targets[i].text.encode("utf-8")
+                translations.append([source, target])
+
+        return translations
