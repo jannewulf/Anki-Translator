@@ -73,10 +73,7 @@ class TranslatorDialog(QDialog):
         p = PONSParser()
         translations = p.getTranslation(vocab, "en", "de")
 
-        try:
-            self.setTableContent(translations)
-        except Exception as e:
-            self.setTableContent([["NO", "DATA"]])
+        self.setTableContent(translations)
 
 
     def setTableContent(self, content):
@@ -91,6 +88,11 @@ class TranslatorDialog(QDialog):
                     self.tableTranslations.setItem(i, j, chkBoxItem)
                 item = QTableWidgetItem(col)
                 self.tableTranslations.setItem(i, j + 1, item)
+
+        # adjust the height of the table
+        rowHeight = self.tableTranslations.verticalHeader().sectionSize(0)
+        rowCount = self.tableTranslations.rowCount()
+        self.tableTranslations.setMinimumHeight(rowHeight * min(rowCount, 12))
 
 
     def setFieldsAndAccept(self):
