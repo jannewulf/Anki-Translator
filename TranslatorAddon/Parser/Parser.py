@@ -6,26 +6,20 @@ from BeautifulSoup import BeautifulSoup
 class Parser(object):
     __metaclass__ = ABCMeta
 
-    def __init__(self, searchTerm, sourceLang, targetLang):
-        self.searchTerm = searchTerm
-        self.sourceLang = sourceLang
-        self.targetLang = targetLang
-        self.url = self.setUrl(searchTerm, sourceLang, targetLang)
+
+    def getHTML(self, searchTerm, sourceLang, targetLang):
+        return urlopen(self.createUrl(searchTerm, sourceLang, targetLang)).read()
 
 
-    def getHTML(self):
-        return urlopen(self.url).read()
-
-
-    def getSoup(self):
-        return BeautifulSoup(self.getHTML())
+    def getSoup(self, searchTerm, sourceLang, targetLang):
+        return BeautifulSoup(self.getHTML(searchTerm, sourceLang, targetLang))
 
 
     @abstractmethod
-    def setUrl(self, searchTerm, sourceLang, targetLang):
+    def createUrl(self, searchTerm, sourceLang, targetLang):
         pass
 
 
     @abstractmethod
-    def getTranslation(self):
+    def getTranslation(self, searchTerm, sourceLang, targetLang):
         pass
