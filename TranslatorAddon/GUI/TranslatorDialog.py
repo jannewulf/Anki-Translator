@@ -2,6 +2,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import Qt
 from TranslatorAddon.Parser.PONSParser import PONSParser
 
+# This class describes the Dialog Window in which a vocable can be translated
 class TranslatorDialog(QDialog):
 
     col0Width = 40
@@ -17,6 +18,7 @@ class TranslatorDialog(QDialog):
         self.setupUi()
 
 
+    # setting up ui elements
     def setupUi(self):
         # Set up window
         self.setWindowTitle("Translator")
@@ -79,6 +81,7 @@ class TranslatorDialog(QDialog):
         self.buttonBox.rejected.connect(self.reject)
 
 
+    # called function on click on translate button
     def translate(self):
         vocab = self.lineEditVocable.text()
         p = PONSParser()
@@ -87,6 +90,7 @@ class TranslatorDialog(QDialog):
         self.setTableContent(translations)
 
 
+    # updating the content of the table
     def setTableContent(self, content):
         self.tableTranslations.setRowCount(len(content))
 
@@ -100,12 +104,8 @@ class TranslatorDialog(QDialog):
                 item = QTableWidgetItem(col)
                 self.tableTranslations.setItem(i, j + 1, item)
 
-        # adjust the height of the table
-        rowHeight = self.tableTranslations.verticalHeader().sectionSize(0)
-        rowCount = self.tableTranslations.rowCount()
-        self.tableTranslations.setMinimumHeight(rowHeight * min(rowCount, 12))
 
-
+    # collect selected translations and return to editor window
     def setFieldsAndAccept(self):
         rows = self.tableTranslations.rowCount()
 
