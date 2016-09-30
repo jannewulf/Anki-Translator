@@ -1,7 +1,6 @@
 from anki.hooks import wrap
 from aqt.editor import Editor
-from aqt.utils import showInfo
-from TranslatorAddon.TranslatorDialog import TranslatorDialog
+from TranslatorAddon.GUI.TranslatorDialog import TranslatorDialog
 
 # This function gets executed when the button in the editor is pressed
 def getTranslation(editor):
