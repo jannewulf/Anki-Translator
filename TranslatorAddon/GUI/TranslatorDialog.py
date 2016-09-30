@@ -4,10 +4,12 @@ from TranslatorAddon.Parser.PONSParser import PONSParser
 
 class TranslatorDialog(QDialog):
 
+    col0Width = 40
+
     def __init__(self, vocable):
         super(TranslatorDialog, self).__init__()
 
-        # Extract the looked up vocable (not updated -> use lineEdit to get current value)
+        # Save the looked up vocable (not updated -> use lineEdit to get current value)
         self.editorVocable = vocable
         self.translations = []
 
@@ -19,45 +21,54 @@ class TranslatorDialog(QDialog):
         # Set up window
         self.setWindowTitle("Translator")
         self.setModal(True)
+        self.resize(800, 600)
 
         # create vocab line edit, translations table etc.
-        self.createGroupBox()
+        self.createTranslContent()
 
         # Add Ok and Cancel buttons
         self.createButtonBox()
 
         # bring ui elements together in main layout
         mainLayout = QVBoxLayout()
-        mainLayout.addWidget(self.formGroupBox)
+        mainLayout.addLayout(self.translContentLayout)
         mainLayout.addWidget(self.buttonBox)
         self.setLayout(mainLayout)
 
-
     # creates all the gui elements except for the button box on the bottom
-    def createGroupBox(self):
-        self.formGroupBox = QGroupBox()
+    def createTranslContent(self):
+        self.translContentLayout = QVBoxLayout()
+        self.translContentLayout.setStretch(1, 1)
         layout = QFormLayout()
+        #self.translContentLayout = QFormLayout()
 
         # vocabulary line edit
         self.lineEditVocable = QLineEdit(self.editorVocable)
-        layout.addRow(QLabel("Vocable"), self.lineEditVocable)
 
         # translate button
         self.buttonTranslate = QPushButton("Translate")
         self.buttonTranslate.clicked.connect(self.translate)
-        layout.addRow(None, self.buttonTranslate)
 
         # translations table
         self.tableTranslations = QTableWidget()
-        self.tableTranslations.setMinimumWidth(600)
         self.tableTranslations.setColumnCount(3)
         self.tableTranslations.setHorizontalHeaderLabels(["Use", "Vocable", "Translation"])
-        self.tableTranslations.horizontalHeader().setResizeMode(QHeaderView.ResizeToContents)
+        self.tableTranslations.horizontalHeader().setResizeMode(QHeaderView.Interactive)
         self.tableTranslations.horizontalHeader().setStretchLastSection(True)
+        self.tableTranslations.horizontalHeader().resizeSection(0, self.col0Width)
+        self.tableTranslations.horizontalHeader().resizeSection(1, (self.tableTranslations.size().width() - self.col0Width) / 2)
         self.tableTranslations.verticalHeader().hide()
+        policy = QSizePolicy()
+        policy.setHorizontalPolicy(policy.Expanding)
+        policy.setVerticalPolicy(policy.Expanding)
+        policy.setVerticalStretch(1)
+        self.tableTranslations.setSizePolicy(policy)
+
+        layout.addRow(QLabel("Vocable"), self.lineEditVocable)
+        layout.addRow(None, self.buttonTranslate)
         layout.addRow(QLabel("Translations"), self.tableTranslations)
 
-        self.formGroupBox.setLayout(layout)
+        self.translContentLayout.addLayout(layout)
 
 
     # creates the 'Ok' and 'Cancel' buttons
@@ -96,7 +107,6 @@ class TranslatorDialog(QDialog):
 
 
     def setFieldsAndAccept(self):
-        cols = self.tableTranslations.columnCount()
         rows = self.tableTranslations.rowCount()
 
         for i in range(rows):
