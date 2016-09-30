@@ -71,13 +71,13 @@ class TranslatorDialog(QDialog):
 
     def translate(self):
         vocab = self.lineEditVocable.text()
-        p = PONSParser(vocab, "en", "de")
-        translations = p.getTranslation()
+        p = PONSParser()
+        translations = p.getTranslation(vocab, "en", "de")
 
         try:
             self.setTableContent(translations)
         except Exception as e:
-            self.setTableContent([["NO", "DATA"]]) 
+            self.setTableContent([["NO", "DATA"]])
 
 
     def setTableContent(self, content):

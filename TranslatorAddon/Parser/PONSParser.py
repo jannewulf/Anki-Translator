@@ -3,12 +3,12 @@ from HTMLParser import HTMLParser
 
 class PONSParser(Parser):
 
-    def setUrl(self, searchTerm, sourceLang, targetLang):
+    def createURL(self, searchTerm, sourceLang, targetLang):
         return "http://en.pons.com/translate?q=" + searchTerm + "&l=deen&in=en&lf=en"
 
 
-    def getTranslation(self):
-        doc = self.getSoup()
+    def getTranslation(self, searchTerm, sourceLang, targetLang):
+        doc = self.getSoup(searchTerm, sourceLang, targetLang)
 
         translations = []
 
