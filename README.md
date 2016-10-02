@@ -2,10 +2,18 @@
 
 Anki-Translator is a Add-On for the flashcard program [Anki](http://ankisrs.net/).
 
-This Add-On translates vocabularies for you. So if you want to add a new flashcard to your deck you can open this Add-On and let it find translations for you from the web.
+This Add-On translates vocabularies for you. So if you want to add a new flashcard to your deck you can open this Add-On 
+and let it find translations for you from the web.
 
+## Usage
 ![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/dev/docs/Button.png)
-You just have to click this button.
+
+Just click this translate button in Anki's Editor. 
 
 ![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/dev/docs/translated-tree.png)
-And then you can let the Add-On translate something for you.
+A new window opens where you choose the direction of the translation and enter the vocable.
+
+After a click on 'Translate' the translations get loaded. You mark the checkboxes of the translations you want to have 
+on your flashcard and leave the window with a click on 'OK'.
+
+The chosen translations get copied on your flashcard.
