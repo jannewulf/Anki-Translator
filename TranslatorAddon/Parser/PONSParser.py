@@ -5,7 +5,7 @@ from HTMLParser import HTMLParser
 class PONSParser(Parser):
 
     def createUrl(self, searchTerm, sourceLang, targetLang):
-        return "http://en.pons.com/translate?q=" + quote_plus(searchTerm) + "&l=deen&in=en&lf=en"
+        return "http://en.pons.com/translate?q=" + quote_plus(searchTerm) + "&l=deen&in=" + sourceLang + "&lf=en"
 
 
     def getTranslation(self, searchTerm, sourceLang, targetLang):

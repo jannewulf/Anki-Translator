@@ -98,7 +98,10 @@ class TranslatorDialog(QDialog):
     def translate(self):
         vocab = self.lineEditVocable.text()
         p = PONSParser()
-        translations = p.getTranslation(vocab, "en", "de")
+        if str(self.cmbBoxDirection.currentText()) == "English -> German":
+            translations = p.getTranslation(vocab, "en", "de")
+        else:
+            translations = p.getTranslation(vocab, "de", "en")
 
         self.setTableContent(translations)
 
