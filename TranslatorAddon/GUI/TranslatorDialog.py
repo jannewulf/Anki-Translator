@@ -25,6 +25,8 @@ class TranslatorDialog(QDialog):
         self.setModal(True)
         self.resize(800, 600)
 
+        self.createSettings()
+
         # create vocab line edit, translations table etc.
         self.createTranslContent()
 
@@ -33,16 +35,27 @@ class TranslatorDialog(QDialog):
 
         # bring ui elements together in main layout
         mainLayout = QVBoxLayout()
-        mainLayout.addLayout(self.translContentLayout)
+        mainLayout.addWidget(self.settingsBox)
+        mainLayout.addWidget(self.translContentLayout)
         mainLayout.addWidget(self.buttonBox)
         self.setLayout(mainLayout)
 
+
+    def createSettings(self):
+        self.settingsBox = QGroupBox("Settings")
+
+        self.cmbBoxDirection = QComboBox()
+        self.cmbBoxDirection.addItems(["English -> German", "German -> English"])
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.cmbBoxDirection)
+        self.settingsBox.setLayout(layout)
+
+
     # creates all the gui elements except for the button box on the bottom
     def createTranslContent(self):
-        self.translContentLayout = QVBoxLayout()
-        self.translContentLayout.setStretch(1, 1)
+        self.translContentLayout = QGroupBox("Translations")
         layout = QFormLayout()
-        #self.translContentLayout = QFormLayout()
 
         # vocabulary line edit
         self.lineEditVocable = QLineEdit(self.editorVocable)
@@ -70,7 +83,7 @@ class TranslatorDialog(QDialog):
         layout.addRow(None, self.buttonTranslate)
         layout.addRow(QLabel("Translations"), self.tableTranslations)
 
-        self.translContentLayout.addLayout(layout)
+        self.translContentLayout.setLayout(layout)
 
 
     # creates the 'Ok' and 'Cancel' buttons
