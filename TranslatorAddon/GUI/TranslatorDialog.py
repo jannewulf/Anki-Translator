@@ -39,6 +39,7 @@ class TranslatorDialog(QDialog):
         mainLayout.addWidget(self.translContentLayout)
         mainLayout.addWidget(self.buttonBox)
         self.setLayout(mainLayout)
+        self.lineEditVocable.setFocus()
 
 
     def createSettings(self):
@@ -57,12 +58,13 @@ class TranslatorDialog(QDialog):
         self.translContentLayout = QGroupBox("Translations")
         layout = QFormLayout()
 
-        # vocabulary line edit
-        self.lineEditVocable = QLineEdit(self.editorVocable)
-
         # translate button
         self.buttonTranslate = QPushButton("Translate")
         self.buttonTranslate.clicked.connect(self.translate)
+
+        # vocabulary line edit
+        self.lineEditVocable = QLineEdit(self.editorVocable)
+        self.lineEditVocable.returnPressed.connect(self.buttonTranslate.click)
 
         # translations table
         self.tableTranslations = QTableWidget()
@@ -132,3 +134,9 @@ class TranslatorDialog(QDialog):
                     self.tableTranslations.item(i, 2).text()])
 
         self.accept()
+
+
+    # Prevent the dialog from closing on enter pressed
+    def keyPressEvent(self, QKeyEvent):
+        if QKeyEvent.key() == Qt.Key_Enter or QKeyEvent.key() == Qt.Key_Return:
+            return
