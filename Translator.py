@@ -1,27 +1,25 @@
-from anki.hooks import wrap
-from aqt.editor import Editor
-from TranslatorAddon.GUI.TranslatorDialog import TranslatorDialog
+# Anki Translator Add-on
+# Helps creating vocabulary flashcards by searching for translations on the web.
+#
+# https://github.com/jannewulf/Anki-Translator
+# jannewulf@gmail.com
+#
+# Copyright (C) 2016  Janne Wulf
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# This function gets executed when the button in the editor is pressed
-def getTranslation(editor):
-	dialog = TranslatorDialog(editor.note.fields[0])
-	if dialog.exec_():
-		for translation in dialog.translations:
-			if editor.note.fields[0]:
-				editor.note.fields[0] += ",\n"
-			editor.note.fields[0] += translation[0]
 
-			if editor.note.fields[1]:
-				editor.note.fields[1] += ",\n"
-			editor.note.fields[1] += translation[1]
+from TranslatorAddon.core import init
 
-		editor.loadNote()
-
-# Definition of the new button
-def mySetupButtons(self):
-	self._addButton("Translate", lambda ed=self: getTranslation(ed),
-				text="T", tip="Translate Word (Ctrl+T)", key="Ctrl+t")
-
-# Concatenate Editor.setupButtons with mySetupButtons
-# So that a new button is inserted into the Editor
-Editor.setupButtons = wrap(Editor.setupButtons, mySetupButtons)
+init()
