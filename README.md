@@ -11,6 +11,7 @@ and let it find translations for you from the web.
 Just click this translate button in Anki's Editor. 
 
 ![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/dev/docs/translated-tree.png)
+
 A new window opens where you choose the direction of the translation and enter the vocable.
 
 After a click on 'Translate' the translations get loaded. You mark the checkboxes of the translations you want to have 
