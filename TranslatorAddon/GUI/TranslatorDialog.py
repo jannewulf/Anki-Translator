@@ -47,8 +47,8 @@ class TranslatorDialog(QDialog):
         self.cmbBoxDirection = QComboBox()
         self.cmbBoxDirection.addItems(["English -> German", "German -> English"])
 
-        layout = QVBoxLayout()
-        layout.addWidget(self.cmbBoxDirection)
+        layout = QFormLayout()
+        layout.addRow(QLabel("Direction"), self.cmbBoxDirection)
         self.settingsBox.setLayout(layout)
 
 
