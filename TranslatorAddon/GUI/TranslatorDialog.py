@@ -1,6 +1,6 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import Qt
-from aqt.utils import tooltip
+#from aqt.utils import tooltip
 from TranslatorAddon.Parser.PONSParser import PONSParser
 
 # This class describes the Dialog Window in which a vocable can be translated
@@ -14,6 +14,8 @@ class TranslatorDialog(QDialog):
         # Save the looked up vocable (not updated -> use lineEdit to get current value)
         self.editorVocable = vocable
         self.translations = []
+
+        self.parser = PONSParser()
 
         # set up gui
         self.setupUi()
@@ -46,11 +48,21 @@ class TranslatorDialog(QDialog):
     def createSettings(self):
         self.settingsBox = QGroupBox("Settings")
 
-        self.cmbBoxDirection = QComboBox()
-        self.cmbBoxDirection.addItems(["English -> German", "German -> English"])
+        self.cmbBoxSourceLang = QComboBox()
+        self.cmbBoxSourceLang.addItems(sorted(self.parser.getSourceLanguages().values()))
+        self.cmbBoxSourceLang.setCurrentIndex(6)
 
-        layout = QFormLayout()
-        layout.addRow(QLabel("Direction"), self.cmbBoxDirection)
+        self.cmbBoxTargetLang = QComboBox()
+        self.updateTargetLanguages()
+        self.cmbBoxSourceLang.currentIndexChanged.connect(self.updateTargetLanguages)
+
+        layout = QHBoxLayout()
+        layout.addWidget(QLabel("Source Language"))
+        layout.addWidget(self.cmbBoxSourceLang)
+        layout.addStretch(1)
+        layout.addWidget(QLabel("Target Language"))
+        layout.addWidget(self.cmbBoxTargetLang)
+        layout.addStretch(1)
         self.settingsBox.setLayout(layout)
 
 
@@ -100,11 +112,9 @@ class TranslatorDialog(QDialog):
     # called function on click on translate button
     def translate(self):
         vocab = self.lineEditVocable.text()
-        p = PONSParser()
-        if str(self.cmbBoxDirection.currentText()) == "English -> German":
-            translations = p.getTranslation(vocab, "en", "de")
-        else:
-            translations = p.getTranslation(vocab, "de", "en")
+        src = self.parser.getLangCode(str(self.cmbBoxSourceLang.currentText()))
+        tgt = self.parser.getLangCode(str(self.cmbBoxTargetLang.currentText()))
+        translations = self.parser.getTranslation(vocab, src, tgt)
 
         self.setTableContent(translations)
 
@@ -112,7 +122,7 @@ class TranslatorDialog(QDialog):
     # updating the content of the table
     def setTableContent(self, content):
         if len(content) == 0:
-            tooltip("No translations found.")
+            #tooltip("No translations found.")
             return
 
         self.tableTranslations.setRowCount(len(content))
@@ -145,3 +155,10 @@ class TranslatorDialog(QDialog):
     def keyPressEvent(self, QKeyEvent):
         if QKeyEvent.key() == Qt.Key_Enter or QKeyEvent.key() == Qt.Key_Return:
             return
+
+    # Update the target languages in the target combo box
+    def updateTargetLanguages(self):
+        self.cmbBoxTargetLang.clear()
+        current = str(self.cmbBoxSourceLang.currentText())
+        key = self.parser.getLangCode(current)
+        self.cmbBoxTargetLang.addItems(sorted(self.parser.getTargetLanguages(key).values()))

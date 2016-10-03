@@ -25,3 +25,22 @@ class Parser(object):
     @abstractmethod
     def getTranslation(self, searchTerm, sourceLang, targetLang):
         pass
+
+    # Abstract Method that needs to be implemented in a Parser inheritance
+    # Returns a dictionary with all country codes and languages from which you can translate something
+    @abstractmethod
+    def getSourceLanguages(self):
+        pass
+
+    # Abstract Method that needs to be implemented in a Parser inheritance
+    # Returns a dictionary with all language codes and language names of languages in which you can translate something
+    # from a specific source language
+    @abstractmethod
+    def getTargetLanguages(self, sourceLanguage):
+        pass
+
+    # Abstract Method that needs to be implemented in a Parser inheritance
+    # Returns the language code to a given language name
+    @abstractmethod
+    def getLangCode(self, language):
+        pass
