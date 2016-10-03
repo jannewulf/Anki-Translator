@@ -1,6 +1,6 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import Qt
-#from aqt.utils import tooltip
+from aqt.utils import tooltip
 from TranslatorAddon.Parser.PONSParser import PONSParser
 
 # This class describes the Dialog Window in which a vocable can be translated
@@ -122,7 +122,7 @@ class TranslatorDialog(QDialog):
     # updating the content of the table
     def setTableContent(self, content):
         if len(content) == 0:
-            #tooltip("No translations found.")
+            tooltip("No translations found.")
             return
 
         self.tableTranslations.setRowCount(len(content))
