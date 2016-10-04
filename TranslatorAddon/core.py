@@ -5,10 +5,11 @@ from GUI.TranslatorDialog import TranslatorDialog
 
 defaultSourceLanguage = ""
 defaultTargetLanguage = ""
+defaultLoadGrammarInfos = ""
 
 # This function gets executed when the button in the editor is pressed
 def getTranslation(editor):
-    dialog = TranslatorDialog(editor.note.fields[0], defaultSourceLanguage, defaultTargetLanguage)
+    dialog = TranslatorDialog(editor.note.fields[0], defaultSourceLanguage, defaultTargetLanguage, defaultLoadGrammarInfos)
     if dialog.exec_():
         vocabs = [vocab[0] for vocab in dialog.translations]
         vocabs = set(vocabs)

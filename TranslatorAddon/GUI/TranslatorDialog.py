@@ -8,12 +8,13 @@ class TranslatorDialog(QDialog):
 
     col0Width = 40
 
-    def __init__(self, vocable, defaultSourceLanguage, defaultTargetLanguage):
+    def __init__(self, vocable, defaultSourceLanguage, defaultTargetLanguage, defaultLoadGrammarInfos):
         super(TranslatorDialog, self).__init__()
 
-        # save default languages
+        # save default values
         self.defaultSrc = defaultSourceLanguage
         self.defaultTgt = defaultTargetLanguage
+        self.defaultGram = defaultLoadGrammarInfos
 
         # Save the looked up vocable (not updated -> use lineEdit to get current value)
         self.editorVocable = vocable
@@ -66,6 +67,9 @@ class TranslatorDialog(QDialog):
         self.updateTargetLanguages()
         self.cmbBoxSourceLang.currentIndexChanged.connect(self.updateTargetLanguages)
 
+        self.chkBoxGrammarInfo = QCheckBox()
+        self.chkBoxGrammarInfo.setChecked(self.defaultGram)
+
         layout = QHBoxLayout()
         layout.addWidget(QLabel("Source Language"))
         layout.addWidget(self.cmbBoxSourceLang)
@@ -73,6 +77,8 @@ class TranslatorDialog(QDialog):
         layout.addWidget(QLabel("Target Language"))
         layout.addWidget(self.cmbBoxTargetLang)
         layout.addStretch(1)
+        layout.addWidget(self.chkBoxGrammarInfo)
+        layout.addWidget(QLabel("Load Grammar Infos"))
         self.settingsBox.setLayout(layout)
 
 
@@ -124,7 +130,9 @@ class TranslatorDialog(QDialog):
         vocab = self.lineEditVocable.text()
         src = self.parser.getLangCode(str(self.cmbBoxSourceLang.currentText()))
         tgt = self.parser.getLangCode(str(self.cmbBoxTargetLang.currentText()))
-        translations = self.parser.getTranslation(vocab, src, tgt)
+        grammarInfos = self.chkBoxGrammarInfo.isChecked()
+
+        translations = self.parser.getTranslation(vocab, src, tgt, grammarInfos)
         self.setTableContent(translations)
 
 

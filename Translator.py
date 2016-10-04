@@ -26,5 +26,6 @@ import TranslatorAddon.core as core
 # For available Language Codes you can see TranslatorAddon/Parser/pons_lang_codes.xml
 core.defaultSourceLanguage = "en"
 core.defaultTargetLanguage = "de"
+core.defaultLoadGrammarInfos = False
 
 core.init()

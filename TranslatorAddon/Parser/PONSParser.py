@@ -19,7 +19,7 @@ class PONSParser(Parser):
         return "http://en.pons.com/translate?q=" + search + "&l=" + combo + "&in=" + src + "&lf=" + src
 
 
-    def getTranslation(self, searchTerm, sourceLang, targetLang):
+    def getTranslation(self, searchTerm, sourceLang, targetLang, loadGrammarInfos):
         doc = self.getSoup(searchTerm, sourceLang, targetLang)
         if doc is None:
             return
@@ -32,6 +32,8 @@ class PONSParser(Parser):
         targets = doc.findAll("div", {"class" : re.compile("^target( rtl)?$")})
         for i in range(len(sources)):
             source = hp.unescape("".join(sources[i].findAll(text=True)).strip())
+            if not loadGrammarInfos:
+                [d.extract() for d in targets[i]("span")]
             target = hp.unescape("".join(targets[i].findAll(text=True)).strip())
             translations.append([source, target])
 

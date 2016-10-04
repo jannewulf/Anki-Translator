@@ -29,7 +29,7 @@ class Parser(object):
     # Abstract Method that needs to be implemented in a Parser inheritance
     # Extracts all the translations of a website
     @abstractmethod
-    def getTranslation(self, searchTerm, sourceLang, targetLang):
+    def getTranslation(self, searchTerm, sourceLang, targetLang, loadGrammarInfos):
         pass
 
     # Abstract Method that needs to be implemented in a Parser inheritance
