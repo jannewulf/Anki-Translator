@@ -7,6 +7,29 @@ and let it find translations for you from the web.
 
 All the Translations come from [PONS](http://en.pons.com/).
 
+##### Available Languages (Not all combinations):
+* Arabic
+* Chinese
+* Dutch
+* English
+* French
+* German
+* Greek
+* Italian
+* Latin
+* Polish
+* Portuguese
+* Russian
+* Slovenian
+* Spanish
+* Turkish
+* Czech
+* Danish
+* Hungarian
+* Norwegian
+* Swedish
+* Elvish
+
 ## Usage
 ![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/dev/docs/Button.png)
 
