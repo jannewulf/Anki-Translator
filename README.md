@@ -7,7 +7,7 @@ and let it find translations for you from the web.
 
 All the Translations come from [PONS](http://en.pons.com/).
 
-##### Available Languages (Not all combinations):
+### Available Languages (Not all combinations):
 * Arabic
 * Chinese
 * Dutch
