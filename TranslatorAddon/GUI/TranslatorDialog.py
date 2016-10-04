@@ -115,12 +115,13 @@ class TranslatorDialog(QDialog):
         src = self.parser.getLangCode(str(self.cmbBoxSourceLang.currentText()))
         tgt = self.parser.getLangCode(str(self.cmbBoxTargetLang.currentText()))
         translations = self.parser.getTranslation(vocab, src, tgt)
-
         self.setTableContent(translations)
 
 
     # updating the content of the table
     def setTableContent(self, content):
+        if content is None:
+            return
         if len(content) == 0:
             tooltip("No translations found.")
             return

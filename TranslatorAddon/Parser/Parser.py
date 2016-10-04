@@ -8,11 +8,17 @@ class Parser(object):
 
     # returns the html document of the website
     def getHTML(self, searchTerm, sourceLang, targetLang):
-        return urlopen(self.createUrl(searchTerm, sourceLang, targetLang)).read()
+        try:
+            return urlopen(self.createUrl(searchTerm, sourceLang, targetLang)).read()
+        except Exception:
+            from aqt.utils import tooltip
+            tooltip("No connection possible.")
 
     # returns a BeautifulSoup element of the website
     def getSoup(self, searchTerm, sourceLang, targetLang):
-        return BeautifulSoup(self.getHTML(searchTerm, sourceLang, targetLang))
+        html = self.getHTML(searchTerm, sourceLang, targetLang)
+        if html is not None:
+            return BeautifulSoup(html)
 
     # Abstract Method that needs to be implemented in a Parser inheritance
     # Returns a url to the website with the translations

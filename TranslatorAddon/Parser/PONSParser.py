@@ -21,6 +21,8 @@ class PONSParser(Parser):
 
     def getTranslation(self, searchTerm, sourceLang, targetLang):
         doc = self.getSoup(searchTerm, sourceLang, targetLang)
+        if doc is None:
+            return
 
         translations = []
 
