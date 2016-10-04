@@ -7,15 +7,19 @@ from GUI.TranslatorDialog import TranslatorDialog
 def getTranslation(editor):
     dialog = TranslatorDialog(editor.note.fields[0])
     if dialog.exec_():
-        for translation in dialog.translations:
+        vocabs = [vocab[0] for vocab in dialog.translations]
+        vocabs = set(vocabs)
+        for vocab in vocabs:
             if editor.note.fields[0]:
                 editor.note.fields[0] += ",\n"
-            editor.note.fields[0] += translation[0]
+            editor.note.fields[0] += vocab
 
+        translations = [translation[1] for translation in dialog.translations]
+        for translation in translations:
             if editor.note.fields[1]:
                 editor.note.fields[1] += ",\n"
-            editor.note.fields[1] += translation[1]
-
+            editor.note.fields[1] += translation
+            
         editor.loadNote()
 
 
