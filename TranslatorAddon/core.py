@@ -3,9 +3,12 @@ from aqt.editor import Editor
 from GUI.TranslatorDialog import TranslatorDialog
 
 
+defaultSourceLanguage = ""
+defaultTargetLanguage = ""
+
 # This function gets executed when the button in the editor is pressed
 def getTranslation(editor):
-    dialog = TranslatorDialog(editor.note.fields[0])
+    dialog = TranslatorDialog(editor.note.fields[0], defaultSourceLanguage, defaultTargetLanguage)
     if dialog.exec_():
         vocabs = [vocab[0] for vocab in dialog.translations]
         vocabs = set(vocabs)
@@ -19,7 +22,7 @@ def getTranslation(editor):
             if editor.note.fields[1]:
                 editor.note.fields[1] += ",\n"
             editor.note.fields[1] += translation
-            
+
         editor.loadNote()
 
 

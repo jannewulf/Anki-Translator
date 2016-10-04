@@ -20,6 +20,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from TranslatorAddon.core import init
+import TranslatorAddon.core as core
 
-init()
+# Here you can set the default Languages.
+# For available Language Codes you can see TranslatorAddon/Parser/pons_lang_codes.xml
+core.defaultSourceLanguage = "en"
+core.defaultTargetLanguage = "de"
+
+core.init()

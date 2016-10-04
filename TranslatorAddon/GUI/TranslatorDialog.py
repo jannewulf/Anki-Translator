@@ -8,8 +8,12 @@ class TranslatorDialog(QDialog):
 
     col0Width = 40
 
-    def __init__(self, vocable):
+    def __init__(self, vocable, defaultSourceLanguage, defaultTargetLanguage):
         super(TranslatorDialog, self).__init__()
+
+        # save default languages
+        self.defaultSrc = defaultSourceLanguage
+        self.defaultTgt = defaultTargetLanguage
 
         # Save the looked up vocable (not updated -> use lineEdit to get current value)
         self.editorVocable = vocable
@@ -50,7 +54,13 @@ class TranslatorDialog(QDialog):
 
         self.cmbBoxSourceLang = QComboBox()
         self.cmbBoxSourceLang.addItems(sorted(self.parser.getSourceLanguages().values()))
-        self.cmbBoxSourceLang.setCurrentIndex(6)
+        try:
+            defaultLangCode = self.parser.getSourceLanguages()[self.defaultSrc]
+        except Exception:
+            defaultLangCode = ""
+        index = self.cmbBoxSourceLang.findText(defaultLangCode)
+        if index >= 0:
+            self.cmbBoxSourceLang.setCurrentIndex(index)
 
         self.cmbBoxTargetLang = QComboBox()
         self.updateTargetLanguages()
@@ -163,3 +173,11 @@ class TranslatorDialog(QDialog):
         current = str(self.cmbBoxSourceLang.currentText())
         key = self.parser.getLangCode(current)
         self.cmbBoxTargetLang.addItems(sorted(self.parser.getTargetLanguages(key).values()))
+
+        try:
+            defaultLangCode = self.parser.getSourceLanguages()[self.defaultTgt]
+        except Exception:
+            defaultLangCode = ""
+        index = self.cmbBoxTargetLang.findText(defaultLangCode)
+        if index >= 0:
+            self.cmbBoxTargetLang.setCurrentIndex(index)
