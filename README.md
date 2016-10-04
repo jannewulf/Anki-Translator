@@ -31,11 +31,11 @@ All the Translations come from [PONS](http://en.pons.com/).
 * Elvish
 
 ## Usage
-![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/dev/docs/Button.png)
+![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/master/docs/Button.png)
 
 Just click this translate button in Anki's Editor. 
 
-![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/dev/docs/translated-tree.png)
+![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/master/docs/translated-tree.png)
 
 A new window opens where you choose the source and target languages and if you want grammar infos (like grammatical
 gender, etc.).
@@ -49,7 +49,7 @@ The chosen translations get copied on your flashcard.
 You can change the default values for source and target language and also for the grammar infos. Just change the values 
 of the variables in the file 'Translator.py'. You can find the file in the Add-Ons Folder of your Anki Installation.
 
-![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/dev/docs/settings.png)
+![alt tag](https://raw.githubusercontent.com/jannewulf/Anki-Translator/master/docs/settings.png)
 
 (See the highlighted lines.)
 
