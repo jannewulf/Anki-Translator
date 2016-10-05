@@ -54,6 +54,7 @@ of the variables in the file 'Translator.py'. You can find the file in the Add-O
 (See the highlighted lines.)
 
 ## Installation
-Download this project and copy the 'Translator.py' file and the 'TranslatorAddon' folder into your Anki Add-On directory.
+This Add-On is also posted on the [Anki Add-Ons Website](https://ankiweb.net/shared/info/300631469/). You can use the Add-On Installer, which is integrated into Anki, to install the Translator. 
+The Downloadcode is '300631469'.
 
-This project will be published on the [Anki Add-Ons Website](https://ankiweb.net/shared/addons/) soon.
+Or you can download this project and copy the 'Translator.py' file and the 'TranslatorAddon' folder into your Anki Add-On directory.
