@@ -10,6 +10,7 @@ class PONSParser(Parser):
     def __init__(self):
         self.langKeys = {}
         self.sourceTargetPairs = {}
+        self.exceptSpans = "^genus$|^style$|^case$|^rhetoric$|^region$|^number$|^topic$|^category$|^perf$|^target$|^info$"
         self.parseLangXML()
 
     def createUrl(self, searchTerm, sourceLang, targetLang):
@@ -28,12 +29,13 @@ class PONSParser(Parser):
 
         hp = HTMLParser()
 
+        if not loadGrammarInfos:
+            [s.extract() for s in doc.findAll("span", {"class" : re.compile(self.exceptSpans)})]
+
         sources = doc.findAll("div", {"class" : re.compile("^source$")})
         targets = doc.findAll("div", {"class" : re.compile("^target( rtl)?$")})
         for i in range(len(sources)):
             source = hp.unescape("".join(sources[i].findAll(text=True)).strip())
-            if not loadGrammarInfos:
-                [d.extract() for d in targets[i]("span")]
             target = hp.unescape("".join(targets[i].findAll(text=True)).strip())
             translations.append([source, target])
 
