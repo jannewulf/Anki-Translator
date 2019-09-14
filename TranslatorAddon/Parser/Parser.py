@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
-from urllib2 import urlopen
-from BeautifulSoup import BeautifulSoup
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
 # Abstract Parser class
 class Parser(object):

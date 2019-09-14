@@ -1,6 +1,6 @@
-from Parser import Parser
-from urllib import quote_plus
-from HTMLParser import HTMLParser
+from .Parser import Parser
+from urllib.parse import quote_plus
+from html.parser import HTMLParser
 import xml.etree.ElementTree as ET
 import os
 import re

@@ -1,7 +1,6 @@
-from PyQt4.QtGui import *
-from PyQt4.QtCore import Qt
+from aqt.qt import *
 from aqt.utils import tooltip
-from TranslatorAddon.Parser.PONSParser import PONSParser
+from AnkiTranslator.TranslatorAddon.Parser.PONSParser import PONSParser
 
 # This class describes the Dialog Window in which a vocable can be translated
 class TranslatorDialog(QDialog):

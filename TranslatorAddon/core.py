@@ -1,6 +1,6 @@
 from anki.hooks import wrap
 from aqt.editor import Editor
-from GUI.TranslatorDialog import TranslatorDialog
+from .GUI.TranslatorDialog import TranslatorDialog
 
 
 defaultSourceLanguage = ""
