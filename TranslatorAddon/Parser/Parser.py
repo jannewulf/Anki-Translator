@@ -18,7 +18,7 @@ class Parser(object):
     def getSoup(self, searchTerm, sourceLang, targetLang):
         html = self.getHTML(searchTerm, sourceLang, targetLang)
         if html is not None:
-            return BeautifulSoup(html)
+            return BeautifulSoup(html,'html.parser')
 
     # Abstract Method that needs to be implemented in a Parser inheritance
     # Returns a url to the website with the translations
