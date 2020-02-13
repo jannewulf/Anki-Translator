@@ -1,7 +1,6 @@
-from PyQt4.QtGui import *
-from PyQt4.QtCore import Qt
+from aqt.qt import *
 from aqt.utils import tooltip
-from TranslatorAddon.Parser.PONSParser import PONSParser
+from AnkiTranslator.TranslatorAddon.Parser.PONSParser import PONSParser
 
 # This class describes the Dialog Window in which a vocable can be translated
 class TranslatorDialog(QDialog):
@@ -99,7 +98,7 @@ class TranslatorDialog(QDialog):
         self.tableTranslations = QTableWidget()
         self.tableTranslations.setColumnCount(3)
         self.tableTranslations.setHorizontalHeaderLabels(["Use", "Vocable", "Translation"])
-        self.tableTranslations.horizontalHeader().setResizeMode(QHeaderView.Interactive)
+        self.tableTranslations.horizontalHeader().setSectionResizeMode(QHeaderView.Interactive)
         self.tableTranslations.horizontalHeader().setStretchLastSection(True)
         self.tableTranslations.horizontalHeader().resizeSection(0, self.col0Width)
         self.tableTranslations.horizontalHeader().resizeSection(1, (self.tableTranslations.size().width() - self.col0Width) / 2)

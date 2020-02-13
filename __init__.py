@@ -19,12 +19,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-import TranslatorAddon.core as core
+from AnkiTranslator.TranslatorAddon import core
 
 # Here you can set the default Languages.
 # For available Language Codes you can see TranslatorAddon/Parser/pons_lang_codes.xml
-core.defaultSourceLanguage = "en"
+core.defaultSourceLanguage = "fr"
 core.defaultTargetLanguage = "de"
 core.defaultLoadGrammarInfos = False
 

@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
-from urllib2 import urlopen
-from BeautifulSoup import BeautifulSoup
+import requests
+from bs4 import BeautifulSoup
 
 # Abstract Parser class
 class Parser(object):
@@ -9,16 +9,16 @@ class Parser(object):
     # returns the html document of the website
     def getHTML(self, searchTerm, sourceLang, targetLang):
         try:
-            return urlopen(self.createUrl(searchTerm, sourceLang, targetLang)).read()
-        except Exception:
+            return requests.get(self.createUrl(searchTerm, sourceLang, targetLang)).text
+        except Exception as e:
             from aqt.utils import tooltip
-            tooltip("No connection possible.")
-
+            tooltip(e)
+            print(e)
     # returns a BeautifulSoup element of the website
     def getSoup(self, searchTerm, sourceLang, targetLang):
         html = self.getHTML(searchTerm, sourceLang, targetLang)
         if html is not None:
-            return BeautifulSoup(html)
+            return BeautifulSoup(html,'html.parser')
 
     # Abstract Method that needs to be implemented in a Parser inheritance
     # Returns a url to the website with the translations

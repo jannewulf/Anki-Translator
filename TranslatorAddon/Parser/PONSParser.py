@@ -1,6 +1,6 @@
-from Parser import Parser
-from urllib import quote_plus
-from HTMLParser import HTMLParser
+from .Parser import Parser
+from urllib.parse import quote_plus
+from html.parser import HTMLParser
 import xml.etree.ElementTree as ET
 import os
 import re
@@ -46,7 +46,7 @@ class PONSParser(Parser):
 
     def getTargetLanguages(self, sourceLanguage):
         targetLangs = {}
-        for code, codePair in self.sourceTargetPairs[sourceLanguage].iteritems():
+        for code, codePair in self.sourceTargetPairs[sourceLanguage].items():
             targetLangs[code] = self.langKeys[code]
         return targetLangs
 
@@ -82,7 +82,7 @@ class PONSParser(Parser):
         return targetsArr
 
     def getLangCode(self, language):
-        for code, name in self.langKeys.iteritems():
+        for code, name in self.langKeys.items():
             if name == language:
                 return code
 

@@ -1,14 +1,19 @@
-from anki.hooks import wrap
-from aqt.editor import Editor
-from GUI.TranslatorDialog import TranslatorDialog
+import os
+from os.path import dirname, abspath, realpath
+from aqt.utils import showInfo
+from anki.hooks import addHook
+from .GUI.TranslatorDialog import TranslatorDialog
 
 
 defaultSourceLanguage = ""
 defaultTargetLanguage = ""
 defaultLoadGrammarInfos = ""
+currentDirName=dirname(abspath(realpath(__file__)))
+
+
 
 # This function gets executed when the button in the editor is pressed
-def getTranslation(editor):
+def onGetTranslation(editor):
     dialog = TranslatorDialog(editor.note.fields[0], defaultSourceLanguage, defaultTargetLanguage, defaultLoadGrammarInfos)
     if dialog.exec_():
         vocabs = [vocab[0] for vocab in dialog.translations]
@@ -28,12 +33,10 @@ def getTranslation(editor):
 
 
 # Definition of the new button
-def mySetupButtons(self):
-    self._addButton("Translate", lambda ed=self: getTranslation(ed),
-                    text="T", tip="Translate Word (Ctrl+T)", key="Ctrl+t")
-
+def addTranslationButton(buttons,editor):
+	editor._links['translate'] = onGetTranslation    
+	buttons += [editor._addButton(os.path.join(dirname(currentDirName),"Resources/TranslateIcon.png"), "translate","Translate Text")]
+	return buttons 
 
 def init():
-    # Concatenate Editor.setupButtons with mySetupButtons
-    # So that a new button is inserted into the Editor
-    Editor.setupButtons = wrap(Editor.setupButtons, mySetupButtons)
+	addHook("setupEditorButtons",addTranslationButton)
